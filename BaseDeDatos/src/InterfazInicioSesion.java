@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.sql.*;
 
 public class InterfazInicioSesion extends JFrame {
 
@@ -15,6 +16,11 @@ public class InterfazInicioSesion extends JFrame {
     private JPasswordField contrasenaPasswordField;
 
     private Map<String, String> usuarios = new HashMap<>();
+
+    // Configuración de la conexión a PostgreSQL
+    private static final String URL = "jdbc:postgresql://localhost:5432/PRINCIPALBD";
+    private static final String USUARIO_BD = "POSTGRES";
+    private static final String CONTRASENA_BD = "1234";
 
     public InterfazInicioSesion() {
         // Configuración de la ventana de inicio de sesión
@@ -55,6 +61,30 @@ public class InterfazInicioSesion extends JFrame {
                 iniciarSesion();
             }
         });
+    }
+    private void cargarUsuariosDesdeBD() {
+        try {
+            // Cargar el controlador JDBC
+            Class.forName("org.postgresql.Driver");
+
+            // Establecer la conexión a la base de datos
+            try (Connection conexion = DriverManager.getConnection(URL, USUARIO_BD, CONTRASENA_BD);
+                 Statement statement = conexion.createStatement();
+                 ResultSet resultSet = statement.executeQuery("SELECT * FROM public.administracion")) {
+
+                while (resultSet.next()) {
+                    String usuario = resultSet.getString("usuario");
+                    String contrasena = resultSet.getString("contrasena");
+                    String tipoUsuario = resultSet.getString("tipo_usuario");
+
+                    usuarios.put(usuario, contrasena);
+                    usuarios.put(usuario + "_tipo", tipoUsuario);
+                }
+
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void iniciarSesion() {
