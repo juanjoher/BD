@@ -1,14 +1,21 @@
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.sql.DriverManager;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Vector;
+
 
 public class InterfazInicioSesion extends JFrame {
+    private Connection connection;
 
     private JComboBox<String> tipoUsuarioComboBox;
     private JTextField usuarioTextField;
@@ -16,7 +23,14 @@ public class InterfazInicioSesion extends JFrame {
 
     private Map<String, String> usuarios = new HashMap<>();
 
+
+
+
     public InterfazInicioSesion() {
+
+
+        establecerConexion();
+
         // Configuración de la ventana de inicio de sesión
         setTitle("Inicio de Sesión");
         setSize(400, 200);
@@ -92,10 +106,10 @@ public class InterfazInicioSesion extends JFrame {
         JButton productosEncargadosPendientesButton = new JButton("Productos Encargados Pendientes");
         JButton productosEncargadosNoEntregadosButton = new JButton("Productos Encargados No Entregados");
         JButton cantidadEnExistenciaButton = new JButton("Cantidad en Existencia");
-        JButton estadoDeColegiosButton = new JButton("Listado de Colegios");
+        JButton listadoDeColegiosButton = new JButton("Listado de Colegios");
         JButton caracteristicasUniformeColegioButton = new JButton("Características de Uniforme Colegio");
         JButton registroButton = new JButton("Registro, Consulta, Modificación y eliminación");
-        JButton totalProductosVendidosButton = new JButton("Total Productos Vendidos");
+        JButton totalProductosVendidosButton = new JButton("Total Productos Vendidos Por Colegio");
         JButton totalVentasButton = new JButton("Total Ventas");
 
 
@@ -106,7 +120,7 @@ public class InterfazInicioSesion extends JFrame {
         panelBotones.add(productosEncargadosPendientesButton);
         panelBotones.add(productosEncargadosNoEntregadosButton);
         panelBotones.add(cantidadEnExistenciaButton);
-        panelBotones.add(estadoDeColegiosButton);
+        panelBotones.add(listadoDeColegiosButton);
         panelBotones.add(caracteristicasUniformeColegioButton);
         panelBotones.add(registroButton);
         panelBotones.add(totalProductosVendidosButton);
@@ -132,13 +146,64 @@ public class InterfazInicioSesion extends JFrame {
             }
         });
 
+
+
         // Crear panel para la pantalla grande
-        JTextArea pantallaGrande = new JTextArea();
-        JScrollPane scrollPane = new JScrollPane(pantallaGrande);
-        pantallaGrande.setEditable(false);
+        DefaultTableModel tableModel = new DefaultTableModel();
+        JTable tablaBaseDatos = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(tablaBaseDatos);
 
         // Añadir el panel de pantalla grande al centro
         ventanaAdministrador.add(scrollPane, BorderLayout.CENTER);
+
+        productosEncargadosPendientesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EncargadosPendientes(tableModel);
+            }
+        });
+
+        productosEncargadosNoEntregadosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EncargadosNoEntregados(tableModel);
+            }
+        });
+
+        cantidadEnExistenciaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ExistenciaDescontando(tableModel);
+            }
+        });
+
+        listadoDeColegiosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ListadoColegios(tableModel);
+            }
+        });
+
+        caracteristicasUniformeColegioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Caracteristicas(tableModel);
+            }
+        });
+
+        totalProductosVendidosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TotalPorColegio(tableModel);
+            }
+        });
+
+        totalVentasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TotalVentas(tableModel);
+            }
+        });
 
         ventanaAdministrador.setVisible(true);
         dispose();
@@ -155,7 +220,7 @@ public class InterfazInicioSesion extends JFrame {
         JButton productosEncargadosPendientesButton = new JButton("Productos Encargados Pendientes");
         JButton productosEncargadosNoEntregadosButton = new JButton("Productos Encargados No Entregados");
         JButton cantidadEnExistenciaButton = new JButton("Cantidad en Existencia");
-        JButton estadoDeColegiosButton = new JButton("Listado de Colegios");
+        JButton listadoDeColegiosButton = new JButton("Listado de Colegios");
         JButton caracteristicasUniformeColegioButton = new JButton("Características de Uniforme Colegio");
         JButton registroButton = new JButton("Registro, Consulta, Modificación y eliminación");
 
@@ -166,7 +231,7 @@ public class InterfazInicioSesion extends JFrame {
         panelBotones.add(productosEncargadosPendientesButton);
         panelBotones.add(productosEncargadosNoEntregadosButton);
         panelBotones.add(cantidadEnExistenciaButton);
-        panelBotones.add(estadoDeColegiosButton);
+        panelBotones.add(listadoDeColegiosButton);
         panelBotones.add(caracteristicasUniformeColegioButton);
         panelBotones.add(registroButton);
 
@@ -187,16 +252,57 @@ public class InterfazInicioSesion extends JFrame {
         });
 
         // Crear panel para la pantalla grande
-        JTextArea pantallaGrande = new JTextArea();
-        JScrollPane scrollPane = new JScrollPane(pantallaGrande);
-        pantallaGrande.setEditable(false);
-
+        DefaultTableModel tableModel = new DefaultTableModel();
+        JTable tablaBaseDatos = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(tablaBaseDatos);
         // Añadir el panel de pantalla grande al centro
         ventanaVendedor.add(scrollPane, BorderLayout.CENTER);
+
+        productosEncargadosPendientesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EncargadosPendientes(tableModel);
+            }
+        });
+
+        productosEncargadosNoEntregadosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EncargadosNoEntregados(tableModel);
+            }
+        });
+
+        cantidadEnExistenciaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ExistenciaDescontando(tableModel);
+            }
+        });
+
+        listadoDeColegiosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                ListadoColegios(tableModel);
+            }
+        });
+
+        caracteristicasUniformeColegioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                Caracteristicas(tableModel );
+            }
+        });
+
+
+
 
         ventanaVendedor.setVisible(true);
         dispose();
     }
+
+
 
 
     private void volverAInicio() {
@@ -251,10 +357,278 @@ public class InterfazInicioSesion extends JFrame {
         }
     }
 
+    private void establecerConexion() {
+
+        try {
+            Class.forName("org.postgresql.Driver");
+            String usuario="postgres";
+            String contrasena="202259500";
+            String bd="Proyecto";
+            String ip="localhost";
+            String puerto="5432";
+
+            // Reemplaza "jdbc:postgresql://localhost:5432/nombre_de_tu_bd" con tu URL de conexión
+            String url = "jdbc:postgresql://"+ip+":"+puerto+"/"+bd;;
+
+
+            connection = DriverManager.getConnection(url, usuario, contrasena);
+            if (connection != null) {
+                System.out.println("Conexión exitosa a la base de datos PostgreSQL");
+            } else {
+                System.out.println("No se pudo establecer la conexión");
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void EncargadosPendientes(DefaultTableModel tableModel) {
+        try (Statement statement = connection.createStatement()) {
+            // Cambia "nombre_de_tu_vista" con el nombre de la vista que deseas mostrar
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM PendientePorEntregar");
+
+            // Limpiar el contenido actual de la tabla
+            tableModel.setRowCount(0);
+            tableModel.setColumnCount(0);
+
+            // Obtener información sobre las columnas
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int numColumns = metaData.getColumnCount();
+
+            // Añadir nombres de columnas al modelo de tabla
+            Vector<String> columnNames = new Vector<>();
+            for (int column = 1; column <= numColumns; column++) {
+                columnNames.add(metaData.getColumnName(column));
+            }
+            tableModel.setColumnIdentifiers(columnNames);
+
+            // Añadir filas al modelo de tabla
+            while (resultSet.next()) {
+                Vector<Object> rowData = new Vector<>();
+                for (int column = 1; column <= numColumns; column++) {
+                    rowData.add(resultSet.getObject(column));
+                }
+                tableModel.addRow(rowData);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void EncargadosNoEntregados(DefaultTableModel tableModel) {
+        try (Statement statement = connection.createStatement()) {
+            // Cambia "nombre_de_tu_vista" con el nombre de la vista que deseas mostrar
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM EncargadosNoEntregados");
+
+            // Limpiar el contenido actual de la tabla
+            tableModel.setRowCount(0);
+            tableModel.setColumnCount(0);
+
+            // Obtener información sobre las columnas
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int numColumns = metaData.getColumnCount();
+
+            // Añadir nombres de columnas al modelo de tabla
+            Vector<String> columnNames = new Vector<>();
+            for (int column = 1; column <= numColumns; column++) {
+                columnNames.add(metaData.getColumnName(column));
+            }
+            tableModel.setColumnIdentifiers(columnNames);
+
+            // Añadir filas al modelo de tabla
+            while (resultSet.next()) {
+                Vector<Object> rowData = new Vector<>();
+                for (int column = 1; column <= numColumns; column++) {
+                    rowData.add(resultSet.getObject(column));
+                }
+                tableModel.addRow(rowData);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void ExistenciaDescontando(DefaultTableModel tableModel) {
+        try (Statement statement = connection.createStatement()) {
+            // Cambia "nombre_de_tu_vista" con el nombre de la vista que deseas mostrar
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM ExistenciaDescontando");
+
+            // Limpiar el contenido actual de la tabla
+            tableModel.setRowCount(0);
+            tableModel.setColumnCount(0);
+
+            // Obtener información sobre las columnas
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int numColumns = metaData.getColumnCount();
+
+            // Añadir nombres de columnas al modelo de tabla
+            Vector<String> columnNames = new Vector<>();
+            for (int column = 1; column <= numColumns; column++) {
+                columnNames.add(metaData.getColumnName(column));
+            }
+            tableModel.setColumnIdentifiers(columnNames);
+
+            // Añadir filas al modelo de tabla
+            while (resultSet.next()) {
+                Vector<Object> rowData = new Vector<>();
+                for (int column = 1; column <= numColumns; column++) {
+                    rowData.add(resultSet.getObject(column));
+                }
+                tableModel.addRow(rowData);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void ListadoColegios(DefaultTableModel tableModel) {
+        try (Statement statement = connection.createStatement()) {
+            // Cambia "nombre_de_tu_vista" con el nombre de la vista que deseas mostrar
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM ListadoColegios");
+
+            // Limpiar el contenido actual de la tabla
+            tableModel.setRowCount(0);
+            tableModel.setColumnCount(0);
+
+            // Obtener información sobre las columnas
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int numColumns = metaData.getColumnCount();
+
+            // Añadir nombres de columnas al modelo de tabla
+            Vector<String> columnNames = new Vector<>();
+            for (int column = 1; column <= numColumns; column++) {
+                columnNames.add(metaData.getColumnName(column));
+            }
+            tableModel.setColumnIdentifiers(columnNames);
+
+            // Añadir filas al modelo de tabla
+            while (resultSet.next()) {
+                Vector<Object> rowData = new Vector<>();
+                for (int column = 1; column <= numColumns; column++) {
+                    rowData.add(resultSet.getObject(column));
+                }
+                tableModel.addRow(rowData);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void Caracteristicas(DefaultTableModel tableModel ) {
+
+        try (Statement statement = connection.createStatement()) {
+            String Colegio = JOptionPane.showInputDialog(this, "Ingrese el colegio a buscar:");
+            // Cambia "nombre_de_tu_vista" con el nombre de la vista que deseas mostrar
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM Caracteristicas WHERE NombreColegio = "+Colegio);
+
+            // Limpiar el contenido actual de la tabla
+            tableModel.setRowCount(0);
+            tableModel.setColumnCount(0);
+
+            // Obtener información sobre las columnas
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int numColumns = metaData.getColumnCount();
+
+            // Añadir nombres de columnas al modelo de tabla
+            Vector<String> columnNames = new Vector<>();
+            for (int column = 1; column <= numColumns; column++) {
+                columnNames.add(metaData.getColumnName(column));
+            }
+            tableModel.setColumnIdentifiers(columnNames);
+
+            // Añadir filas al modelo de tabla
+            while (resultSet.next()) {
+                Vector<Object> rowData = new Vector<>();
+                for (int column = 1; column <= numColumns; column++) {
+                    rowData.add(resultSet.getObject(column));
+                }
+                tableModel.addRow(rowData);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void TotalPorColegio(DefaultTableModel tableModel) {
+        try (Statement statement = connection.createStatement()) {
+            // Cambia "nombre_de_tu_vista" con el nombre de la vista que deseas mostrar
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM TotalPorColegio");
+
+            // Limpiar el contenido actual de la tabla
+            tableModel.setRowCount(0);
+            tableModel.setColumnCount(0);
+
+            // Obtener información sobre las columnas
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int numColumns = metaData.getColumnCount();
+
+            // Añadir nombres de columnas al modelo de tabla
+            Vector<String> columnNames = new Vector<>();
+            for (int column = 1; column <= numColumns; column++) {
+                columnNames.add(metaData.getColumnName(column));
+            }
+            tableModel.setColumnIdentifiers(columnNames);
+
+            // Añadir filas al modelo de tabla
+            while (resultSet.next()) {
+                Vector<Object> rowData = new Vector<>();
+                for (int column = 1; column <= numColumns; column++) {
+                    rowData.add(resultSet.getObject(column));
+                }
+                tableModel.addRow(rowData);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void TotalVentas(DefaultTableModel tableModel) {
+        try (Statement statement = connection.createStatement()) {
+            // Cambia "nombre_de_tu_vista" con el nombre de la vista que deseas mostrar
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM TotalVentas");
+
+            // Limpiar el contenido actual de la tabla
+            tableModel.setRowCount(0);
+            tableModel.setColumnCount(0);
+
+            // Obtener información sobre las columnas
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int numColumns = metaData.getColumnCount();
+
+            // Añadir nombres de columnas al modelo de tabla
+            Vector<String> columnNames = new Vector<>();
+            for (int column = 1; column <= numColumns; column++) {
+                columnNames.add(metaData.getColumnName(column));
+            }
+            tableModel.setColumnIdentifiers(columnNames);
+
+            // Añadir filas al modelo de tabla
+            while (resultSet.next()) {
+                Vector<Object> rowData = new Vector<>();
+                for (int column = 1; column <= numColumns; column++) {
+                    rowData.add(resultSet.getObject(column));
+                }
+                tableModel.addRow(rowData);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
+
+
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+
                 InterfazInicioSesion interfaz = new InterfazInicioSesion();
                 interfaz.setVisible(true);
             }
