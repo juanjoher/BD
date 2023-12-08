@@ -523,7 +523,7 @@ public class InterfazInicioSesion extends JFrame {
         try (Statement statement = connection.createStatement()) {
             String Colegio = JOptionPane.showInputDialog(this, "Ingrese el colegio a buscar:");
             // Cambia "nombre_de_tu_vista" con el nombre de la vista que deseas mostrar
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM Caracteristicas WHERE NombreColegio = "+Colegio);
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM Caracteristicas WHERE NombreColegio = "+"'"+Colegio+"'");
 
             // Limpiar el contenido actual de la tabla
             tableModel.setRowCount(0);
