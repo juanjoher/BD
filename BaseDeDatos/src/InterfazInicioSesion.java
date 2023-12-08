@@ -146,6 +146,14 @@ public class InterfazInicioSesion extends JFrame {
             }
         });
 
+        registroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                VentanaRegistro();
+                ventanaAdministrador.dispose();
+            }
+        });
+
 
 
         // Crear panel para la pantalla grande
@@ -206,6 +214,19 @@ public class InterfazInicioSesion extends JFrame {
         });
 
         ventanaAdministrador.setVisible(true);
+        dispose();
+    }
+
+    private void VentanaRegistro() {
+        JFrame ventanaRegistro = new JFrame("Panel de Registro y eliminacion");
+        ventanaRegistro.setSize(500, 500);
+        ventanaRegistro.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        ventanaRegistro.setLocationRelativeTo(null);
+
+
+
+
+        ventanaRegistro.setVisible(true);
         dispose();
     }
 
