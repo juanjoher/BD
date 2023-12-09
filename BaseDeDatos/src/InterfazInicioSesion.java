@@ -249,8 +249,8 @@ public class InterfazInicioSesion extends JFrame {
         InsertarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Registro Registro = new Registro();
-                Registro.Insert();
+                Insertar Insertar = new Insertar();
+                Insertar.Insert();
             }
         });
 
@@ -280,11 +280,11 @@ public class InterfazInicioSesion extends JFrame {
 
 
 
-
-
-
         ventanaRegistro.setVisible(true);
         dispose();
+
+
+
     }
 
     private void abrirInterfazVendedor() {
@@ -435,7 +435,7 @@ public class InterfazInicioSesion extends JFrame {
         }
     }
 
-    private void establecerConexion() {
+    public void establecerConexion() {
 
         try {
             Class.forName("org.postgresql.Driver");
