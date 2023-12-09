@@ -227,6 +227,7 @@ public class InterfazInicioSesion extends JFrame {
         JButton ActualizarButton = new JButton("Actualizar datos");
         JButton EliminarButton = new JButton("Eliminar datos");
         JButton ConsultasButton = new JButton("Hacer consultas");
+        JButton TablasButton = new JButton("Ver tablas");
         JButton cerrarSesionButton = new JButton("Cerrar Sesión");
 
         JPanel panelBotones = new JPanel(new GridLayout(5, 2));
@@ -234,6 +235,7 @@ public class InterfazInicioSesion extends JFrame {
         panelBotones.add(ActualizarButton);
         panelBotones.add(EliminarButton);
         panelBotones.add(ConsultasButton);
+        panelBotones.add(TablasButton);
         panelBotones.add(cerrarSesionButton);
 
         ventanaRegistro.add(panelBotones, BorderLayout.CENTER);
@@ -257,23 +259,32 @@ public class InterfazInicioSesion extends JFrame {
         ActualizarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Registro Registro = new Registro();
-                Registro.Actualizar();
+                Actualizar Actualizar = new Actualizar();
+                Actualizar.Actualizar();
             }
         });
 
        EliminarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Registro Registro = new Registro();
-                Registro.Eliminar();
+                Delete Delete = new Delete();
+                Delete.Delete();
             }
         });
 
         ConsultasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Registro Registro = new Registro();
+
+
+            }
+        });
+
+        TablasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MostrarTablas Mostrar = new MostrarTablas();
+                Mostrar.MostrarTablas();
 
             }
         });
