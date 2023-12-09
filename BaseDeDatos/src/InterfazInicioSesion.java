@@ -384,6 +384,15 @@ public class InterfazInicioSesion extends JFrame {
             }
         });
 
+        registroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                VentanaRegistro();
+            }
+        });
+
+
 
 
 
