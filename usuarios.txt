@@ -1,0 +1,2 @@
+juan,123,Vendedor
+juan_tipo,Vendedor,null
