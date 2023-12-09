@@ -223,6 +223,63 @@ public class InterfazInicioSesion extends JFrame {
         ventanaRegistro.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ventanaRegistro.setLocationRelativeTo(null);
 
+        JButton InsertarButton = new JButton("Insertar datos a tablas");
+        JButton ActualizarButton = new JButton("Actualizar datos");
+        JButton EliminarButton = new JButton("Eliminar datos");
+        JButton ConsultasButton = new JButton("Hacer consultas");
+        JButton cerrarSesionButton = new JButton("Cerrar Sesión");
+
+        JPanel panelBotones = new JPanel(new GridLayout(5, 2));
+        panelBotones.add(InsertarButton);
+        panelBotones.add(ActualizarButton);
+        panelBotones.add(EliminarButton);
+        panelBotones.add(ConsultasButton);
+        panelBotones.add(cerrarSesionButton);
+
+        ventanaRegistro.add(panelBotones, BorderLayout.CENTER);
+
+        cerrarSesionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                volverAInicio();
+                ventanaRegistro.dispose();
+            }
+        });
+
+        InsertarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Registro Registro = new Registro();
+                Registro.Insert();
+            }
+        });
+
+        ActualizarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Registro Registro = new Registro();
+                Registro.Actualizar();
+            }
+        });
+
+       EliminarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Registro Registro = new Registro();
+                Registro.Eliminar();
+            }
+        });
+
+        ConsultasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Registro Registro = new Registro();
+
+            }
+        });
+
+
+
 
 
 
