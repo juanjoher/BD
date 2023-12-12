@@ -473,7 +473,11 @@ public class InterfazInicioSesion extends JFrame {
             if (connection != null) {
                 System.out.println("Conexión exitosa a la base de datos PostgreSQL");
             } else {
-                System.out.println("No se pudo establecer la conexión");
+                connection = DriverManager.getConnection(url, usuario, "1234");
+                if (connection != null) {
+                    System.out.println("Conexión exitosa a la base de datos PostgreSQL");
+                } else {
+                    System.out.println("No se pudo establecer la conexión");}
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

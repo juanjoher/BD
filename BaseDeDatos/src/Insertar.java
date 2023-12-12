@@ -582,7 +582,15 @@ public class Insertar extends JFrame {
 
 
             connection = DriverManager.getConnection(url, usuario, contrasena);
-
+            if (connection != null) {
+                System.out.println("Conexión exitosa a la base de datos PostgreSQL");
+            } else {
+                connection = DriverManager.getConnection(url, usuario, "1234");
+                if (connection != null) {
+                    System.out.println("Conexión exitosa a la base de datos PostgreSQL");
+                } else {
+                    System.out.println("No se pudo establecer la conexión");}
+            }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
