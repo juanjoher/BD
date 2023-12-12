@@ -22,7 +22,7 @@ public class Insertar extends JFrame {
         ventanaInsercion.setLocationRelativeTo(null);
 
 
-        tablaComboBox = new JComboBox<>(new String[]{"UniformeColegio", "PrendaVestir", "Proveedor", "MateriaPrima", "Cliente", "TelCliente", "Encargo"});
+        tablaComboBox = new JComboBox<>(new String[]{"UniformeColegio", "PrendaVestir", "Proveedor", "MateriaPrima", "Cliente", "Encargo"});
 
 
 
@@ -36,7 +36,7 @@ public class Insertar extends JFrame {
         ventanaInsercion.setLayout(new GridLayout(3, 1));
 
         // Agregar componentes al panel
-        ventanaInsercion.add(new JLabel("Seleccione una tabla:"));
+        ventanaInsercion.add(new JLabel("Seleccione de donde quiere eliminar datos:"));
         ventanaInsercion.add(tablaComboBox);
         ventanaInsercion.add(confirmarButton);
 
@@ -62,9 +62,6 @@ public class Insertar extends JFrame {
                     ventanaInsercion.dispose();
                 }else if(Objects.equals(tablaSeleccionada, "Cliente")){
                     Cliente();
-                    ventanaInsercion.dispose();
-                }else if(Objects.equals(tablaSeleccionada, "TelCliente")){
-                    TelCliente();
                     ventanaInsercion.dispose();
                 }else if(Objects.equals(tablaSeleccionada, "Encargo")){
                     Encargo();
@@ -392,11 +389,12 @@ public class Insertar extends JFrame {
 
         JLabel IdLabel = new JLabel("Id del cliente:");
         JLabel NombreLabel = new JLabel("Nombre del cliente:");
+        JLabel TelefonoLabel = new JLabel("Telefono del cliente: ");
 
 
         JTextField IdTextField = new JTextField();
         JTextField NombreTextField = new JTextField();
-
+        JTextField TelefonoField = new JTextField();
 
         JButton InsertarButton = new JButton("Insertar");
 
@@ -408,6 +406,8 @@ public class Insertar extends JFrame {
         ventanaCliente.add(IdTextField);
         ventanaCliente.add(NombreLabel);
         ventanaCliente.add(NombreTextField);
+        ventanaCliente.add(TelefonoLabel);
+        ventanaCliente.add(TelefonoField);
         ventanaCliente.add(InsertarButton);
 
 
@@ -419,13 +419,17 @@ public class Insertar extends JFrame {
 
                 int Id = Integer.parseInt(IdTextField.getText());
                 String nombre = NombreTextField.getText();
+                String telefono = TelefonoField.getText();
 
 
 
                 String NombreTabla ="Cliente";
+                String NombreTabla2 = "TelCliente";
                 String values = "("+Id+",'"+nombre+"');";
+                String values2 = "("+Id+",'" +telefono+"');";
                 System.out.println(values);
                 InsertInto(NombreTabla, values);
+                InsertInto(NombreTabla2,values2);
                 ventanaCliente.dispose();
             }
         });
@@ -436,57 +440,7 @@ public class Insertar extends JFrame {
 
     }
 
-    public void TelCliente(){
 
-        JFrame ventanaTel = new JFrame("Ingresar cliente");
-        ventanaTel.setSize(500, 500);
-        ventanaTel.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        ventanaTel.setLocationRelativeTo(null);
-
-        JLabel IdLabel = new JLabel("Id del cliente:");
-        JLabel TelefonoLabel = new JLabel("Telefono del cliente:");
-
-
-        JTextField IdTextField = new JTextField();
-        JTextField TelefonoTextField = new JTextField();
-
-
-        JButton InsertarButton = new JButton("Insertar");
-
-        ventanaTel.setLayout(new GridLayout(6, 2));
-
-
-
-        ventanaTel.add(IdLabel);
-        ventanaTel.add(IdTextField);
-        ventanaTel.add(TelefonoLabel);
-        ventanaTel.add(TelefonoTextField);
-        ventanaTel.add(InsertarButton);
-
-
-
-
-        InsertarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                int Id = Integer.parseInt(IdTextField.getText());
-                String Telefono = TelefonoTextField.getText();
-
-
-
-                String NombreTabla ="TelCliente";
-                String values = "("+Id+",'"+Telefono+"');";
-                System.out.println(values);
-                InsertInto(NombreTabla, values);
-                ventanaTel.dispose();
-            }
-        });
-
-        ventanaTel.setVisible(true);
-        dispose();
-
-    }
 
     public void Encargo(){
         JFrame ventanaEncargo = new JFrame("Encargo");

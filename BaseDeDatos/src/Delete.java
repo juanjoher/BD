@@ -301,6 +301,7 @@ public class Delete extends JFrame {
                 String NombreTabla= "Cliente";
                 Object valor= AtributoTextField.getText();
 
+                DeleteFrom("TelCliente",atributoSeleccionado,valor);
                 DeleteFrom(NombreTabla,atributoSeleccionado,valor);
                 ventanaCliente.dispose();
 
