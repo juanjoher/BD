@@ -26,7 +26,7 @@ public class Delete extends JFrame {
         ventanaDelete.setLocationRelativeTo(null);
 
 
-        tablaComboBox = new JComboBox<>(new String[]{"UniformeColegio", "PrendaVestir", "Proveedor", "MateriaPrima", "Cliente", "TelCliente", "Encargo"});
+        tablaComboBox = new JComboBox<>(new String[]{"UniformeColegio", "PrendaVestir", "Proveedor", "MateriaPrima", "Cliente", "Encargo"});
 
 
 
