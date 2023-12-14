@@ -226,15 +226,13 @@ public class InterfazInicioSesion extends JFrame {
         JButton InsertarButton = new JButton("Insertar datos a tablas");
         JButton ActualizarButton = new JButton("Actualizar datos");
         JButton EliminarButton = new JButton("Eliminar datos");
-        JButton ConsultasButton = new JButton("Hacer consultas");
-        JButton TablasButton = new JButton("Ver tablas");
+        JButton TablasButton = new JButton("Consultar tablas");
         JButton cerrarSesionButton = new JButton("Cerrar Sesión");
 
         JPanel panelBotones = new JPanel(new GridLayout(5, 2));
         panelBotones.add(InsertarButton);
         panelBotones.add(ActualizarButton);
         panelBotones.add(EliminarButton);
-        panelBotones.add(ConsultasButton);
         panelBotones.add(TablasButton);
         panelBotones.add(cerrarSesionButton);
 
@@ -272,13 +270,7 @@ public class InterfazInicioSesion extends JFrame {
             }
         });
 
-        ConsultasButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-
-            }
-        });
 
         TablasButton.addActionListener(new ActionListener() {
             @Override
