@@ -1,2 +1,8 @@
+null,null,null
+null_tipo,null,null
+null,null,null
+juan_tipo_tipo,null,null
+null_tipo_tipo,null,null
+juan_tipo_tipo_tipo,null,null
 juan,123,Vendedor
 juan_tipo,Vendedor,null

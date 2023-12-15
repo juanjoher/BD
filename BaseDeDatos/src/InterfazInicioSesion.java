@@ -97,7 +97,7 @@ public class InterfazInicioSesion extends JFrame {
 
     private void abrirInterfazAdministrador() {
         JFrame ventanaAdministrador = new JFrame("Panel de Administrador");
-        ventanaAdministrador.setSize(500, 500);
+        ventanaAdministrador.setSize(1000, 1000);
         ventanaAdministrador.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ventanaAdministrador.setLocationRelativeTo(null);
 
@@ -112,24 +112,27 @@ public class InterfazInicioSesion extends JFrame {
         JButton totalProductosVendidosButton = new JButton("Total Productos Vendidos Por Colegio");
         JButton totalVentasButton = new JButton("Total Ventas");
 
+        cerrarSesionButton.setBackground(Color.RED);
+        cerrarSesionButton.setForeground(Color.WHITE);
+
 
         // Crear panel para los botones en la parte superior
-        JPanel panelBotones = new JPanel(new GridLayout(5, 2));
-        panelBotones.add(crearUsuarioButton);
-        panelBotones.add(cerrarSesionButton);
+        JPanel panelBotones = new JPanel(new GridLayout(10, 1));
         panelBotones.add(productosEncargadosPendientesButton);
         panelBotones.add(productosEncargadosNoEntregadosButton);
         panelBotones.add(cantidadEnExistenciaButton);
         panelBotones.add(listadoDeColegiosButton);
         panelBotones.add(caracteristicasUniformeColegioButton);
-        panelBotones.add(registroButton);
         panelBotones.add(totalProductosVendidosButton);
         panelBotones.add(totalVentasButton);
+        panelBotones.add(crearUsuarioButton);
+        panelBotones.add(registroButton);
+        panelBotones.add(cerrarSesionButton);
 
 
 
         // Añadir el panel de botones al norte
-        ventanaAdministrador.add(panelBotones, BorderLayout.NORTH);
+        ventanaAdministrador.add(panelBotones, BorderLayout.WEST);
 
         crearUsuarioButton.addActionListener(new ActionListener() {
             @Override
@@ -219,7 +222,7 @@ public class InterfazInicioSesion extends JFrame {
 
     public void VentanaRegistro() {
         JFrame ventanaRegistro = new JFrame("Panel de Registro y eliminacion");
-        ventanaRegistro.setSize(500, 500);
+        ventanaRegistro.setSize(1000, 1000);
         ventanaRegistro.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ventanaRegistro.setLocationRelativeTo(null);
 
@@ -230,7 +233,11 @@ public class InterfazInicioSesion extends JFrame {
         JButton AtrasButton = new JButton("Atras");
         JButton cerrarSesionButton = new JButton("Cerrar Sesión");
 
-        JPanel panelBotones = new JPanel(new GridLayout(5, 2));
+        cerrarSesionButton.setBackground(Color.RED);
+        cerrarSesionButton.setForeground(Color.WHITE);
+
+
+        JPanel panelBotones = new JPanel(new GridLayout(6, 1));
         panelBotones.add(InsertarButton);
         panelBotones.add(ActualizarButton);
         panelBotones.add(EliminarButton);
@@ -284,9 +291,14 @@ public class InterfazInicioSesion extends JFrame {
        EliminarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String tipoUsuario = (String) tipoUsuarioComboBox.getSelectedItem();
+                if (tipoUsuario=="Administrador"){
                 ventanaRegistro.dispose();
                 Delete Delete = new Delete();
-                Delete.Delete();
+                Delete.Delete();} else{
+                    JOptionPane.showMessageDialog(null, "Acceso restringido, contacte al administrador para eliminar algun dato.","ERROR", JOptionPane.ERROR_MESSAGE);
+
+                }
 
             }
         });
@@ -315,7 +327,7 @@ public class InterfazInicioSesion extends JFrame {
 
     private void abrirInterfazVendedor() {
         JFrame ventanaVendedor = new JFrame("Panel de Vendedor");
-        ventanaVendedor.setSize(500, 500);
+        ventanaVendedor.setSize(1000, 1000);
         ventanaVendedor.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ventanaVendedor.setLocationRelativeTo(null);
 
@@ -328,22 +340,25 @@ public class InterfazInicioSesion extends JFrame {
         JButton caracteristicasUniformeColegioButton = new JButton("Características de Uniforme Colegio");
         JButton registroButton = new JButton("Registro, Consulta, Modificación y eliminación");
 
+        cerrarSesionButton.setBackground(Color.RED);
+        cerrarSesionButton.setForeground(Color.WHITE);
+
 
         // Crear panel para los botones en la parte superior
-        JPanel panelBotones = new JPanel(new GridLayout(5, 2));
-        panelBotones.add(cerrarSesionButton);
+        JPanel panelBotones = new JPanel(new GridLayout(7, 1));
         panelBotones.add(productosEncargadosPendientesButton);
         panelBotones.add(productosEncargadosNoEntregadosButton);
         panelBotones.add(cantidadEnExistenciaButton);
         panelBotones.add(listadoDeColegiosButton);
         panelBotones.add(caracteristicasUniformeColegioButton);
         panelBotones.add(registroButton);
+        panelBotones.add(cerrarSesionButton);
 
 
 
 
         // Añadir el panel de botones al norte
-        ventanaVendedor.add(panelBotones, BorderLayout.NORTH);
+        ventanaVendedor.add(panelBotones, BorderLayout.WEST);
 
 
 
@@ -404,6 +419,7 @@ public class InterfazInicioSesion extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 VentanaRegistro();
+                ventanaVendedor.dispose();
             }
         });
 
@@ -632,7 +648,7 @@ public class InterfazInicioSesion extends JFrame {
         try (Statement statement = connection.createStatement()) {
             String Colegio = JOptionPane.showInputDialog(this, "Ingrese el colegio a buscar:");
             // Cambia "nombre_de_tu_vista" con el nombre de la vista que deseas mostrar
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM Caracteristicas WHERE NombreColegio = "+"'"+Colegio+"'");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM VistaCaracteristicasUniformeColegio WHERE NombreColegio = "+"'"+Colegio+"'");
 
             // Limpiar el contenido actual de la tabla
             tableModel.setRowCount(0);
