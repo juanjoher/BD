@@ -35,6 +35,7 @@ public class Delete extends JFrame {
 
         // Crear botón para confirmar la selección
         JButton confirmarButton = new JButton("Confirmar");
+        JButton AtrasButton = new JButton("Atras");
 
         // Configurar el layout
         ventanaDelete.setLayout(new GridLayout(3, 1));
@@ -43,6 +44,7 @@ public class Delete extends JFrame {
         ventanaDelete.add(new JLabel("Seleccione una tabla:"));
         ventanaDelete.add(tablaComboBox);
         ventanaDelete.add(confirmarButton);
+        ventanaDelete.add(AtrasButton);
 
         // Acción del botón de confirmar
         confirmarButton.addActionListener(new ActionListener() {
@@ -53,27 +55,37 @@ public class Delete extends JFrame {
                 if (Objects.equals(tablaSeleccionada, "UniformeColegio")){
 
                     UniformeColegio();
-                    ventanaDelete.dispose();
+
 
                 } else if(Objects.equals(tablaSeleccionada, "PrendaVestir")){
                     PrendaVestir();
-                    ventanaDelete.dispose();
+
                 }else if(Objects.equals(tablaSeleccionada, "Proveedor")){
                     Proveedor();
-                    ventanaDelete.dispose();
+
                 }else if(Objects.equals(tablaSeleccionada, "MateriaPrima")){
                     MateriaPrima();
-                    ventanaDelete.dispose();
+
                 }else if(Objects.equals(tablaSeleccionada, "Cliente")){
                     Cliente();
-                    ventanaDelete.dispose();
+
                 }else if(Objects.equals(tablaSeleccionada, "TelCliente")){
                     TelCliente();
-                    ventanaDelete.dispose();
+
                 }else if(Objects.equals(tablaSeleccionada, "Encargo")){
                     Encargo();
-                    ventanaDelete.dispose();
+
                 }
+
+            }
+        });
+
+        AtrasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ventanaDelete.dispose();
+                InterfazInicioSesion Interfaz = new InterfazInicioSesion();
+                Interfaz.VentanaRegistro();
 
             }
         });
@@ -448,7 +460,7 @@ public class Delete extends JFrame {
         try {
             Class.forName("org.postgresql.Driver");
             String usuario="postgres";
-            String contrasena="202259500";
+            String contrasena="1234";
             String bd="Proyecto";
             String ip="localhost";
             String puerto="5432";
@@ -458,15 +470,7 @@ public class Delete extends JFrame {
 
 
             connection = DriverManager.getConnection(url, usuario, contrasena);
-            if (connection != null) {
-                System.out.println("Conexión exitosa a la base de datos PostgreSQL");
-            } else {
-                connection = DriverManager.getConnection(url, usuario, "1234");
-                if (connection != null) {
-                    System.out.println("Conexión exitosa a la base de datos PostgreSQL");
-                } else {
-                    System.out.println("No se pudo establecer la conexión");}
-            }
+
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

@@ -31,6 +31,7 @@ public class Insertar extends JFrame {
 
         // Crear botón para confirmar la selección
         JButton confirmarButton = new JButton("Confirmar");
+        JButton AtrasButton = new JButton("Atras");
 
         // Configurar el layout
         ventanaInsercion.setLayout(new GridLayout(3, 1));
@@ -39,6 +40,7 @@ public class Insertar extends JFrame {
         ventanaInsercion.add(new JLabel("Seleccione de donde quiere eliminar datos:"));
         ventanaInsercion.add(tablaComboBox);
         ventanaInsercion.add(confirmarButton);
+        ventanaInsercion.add(AtrasButton);
 
         // Acción del botón de confirmar
         confirmarButton.addActionListener(new ActionListener() {
@@ -49,24 +51,34 @@ public class Insertar extends JFrame {
                 if (Objects.equals(tablaSeleccionada, "UniformeColegio")){
 
                     UniformeColegio();
-                    ventanaInsercion.dispose();
+
 
                 } else if(Objects.equals(tablaSeleccionada, "PrendaVestir")){
                     PrendaVestir();
-                    ventanaInsercion.dispose();
+
                 }else if(Objects.equals(tablaSeleccionada, "Proveedor")){
                     Proveedor();
-                    ventanaInsercion.dispose();
+
                 }else if(Objects.equals(tablaSeleccionada, "MateriaPrima")){
                     MateriaPrima();
-                    ventanaInsercion.dispose();
+
                 }else if(Objects.equals(tablaSeleccionada, "Cliente")){
                     Cliente();
-                    ventanaInsercion.dispose();
+
                 }else if(Objects.equals(tablaSeleccionada, "Encargo")){
                     Encargo();
-                    ventanaInsercion.dispose();
+
                 }
+
+            }
+        });
+
+        AtrasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ventanaInsercion.dispose();
+                InterfazInicioSesion Interfaz = new InterfazInicioSesion();
+                Interfaz.VentanaRegistro();
 
             }
         });
@@ -434,6 +446,8 @@ public class Insertar extends JFrame {
             }
         });
 
+
+
         ventanaCliente.setVisible(true);
         dispose();
 
@@ -572,7 +586,7 @@ public class Insertar extends JFrame {
         try {
             Class.forName("org.postgresql.Driver");
             String usuario="postgres";
-            String contrasena="202259500";
+            String contrasena="1234";
             String bd="Proyecto";
             String ip="localhost";
             String puerto="5432";
@@ -582,15 +596,7 @@ public class Insertar extends JFrame {
 
 
             connection = DriverManager.getConnection(url, usuario, contrasena);
-            if (connection != null) {
-                System.out.println("Conexión exitosa a la base de datos PostgreSQL");
-            } else {
-                connection = DriverManager.getConnection(url, usuario, "1234");
-                if (connection != null) {
-                    System.out.println("Conexión exitosa a la base de datos PostgreSQL");
-                } else {
-                    System.out.println("No se pudo establecer la conexión");}
-            }
+
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

@@ -30,12 +30,14 @@ public class Actualizar extends JFrame {
 
         // Crear botón para confirmar la selección
         JButton confirmarButton = new JButton("Confirmar");
+        JButton AtrasButton = new JButton("Atras");
 
         // Configurar el layout
         ventanaAct.setLayout(new GridLayout(6, 2));
 
 
         ventanaAct.add(confirmarButton);
+        ventanaAct.add(AtrasButton);
 
         // Acción del botón de confirmar
         confirmarButton.addActionListener(new ActionListener() {
@@ -65,6 +67,16 @@ public class Actualizar extends JFrame {
 
 
 
+
+            }
+        });
+
+        AtrasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ventanaAct.dispose();
+                InterfazInicioSesion Interfaz = new InterfazInicioSesion();
+                Interfaz.VentanaRegistro();
 
             }
         });
@@ -576,7 +588,7 @@ public class Actualizar extends JFrame {
         try {
             Class.forName("org.postgresql.Driver");
             String usuario="postgres";
-            String contrasena="202259500";
+            String contrasena="1234";
             String bd="Proyecto";
             String ip="localhost";
             String puerto="5432";
@@ -586,15 +598,7 @@ public class Actualizar extends JFrame {
 
 
             connection = DriverManager.getConnection(url, usuario, contrasena);
-            if (connection != null) {
-                System.out.println("Conexión exitosa a la base de datos PostgreSQL");
-            } else {
-                connection = DriverManager.getConnection(url, usuario, "1234");
-                if (connection != null) {
-                    System.out.println("Conexión exitosa a la base de datos PostgreSQL");
-                } else {
-                    System.out.println("No se pudo establecer la conexión");}
-            }
+
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

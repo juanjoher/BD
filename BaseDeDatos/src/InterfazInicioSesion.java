@@ -217,7 +217,7 @@ public class InterfazInicioSesion extends JFrame {
         dispose();
     }
 
-    private void VentanaRegistro() {
+    public void VentanaRegistro() {
         JFrame ventanaRegistro = new JFrame("Panel de Registro y eliminacion");
         ventanaRegistro.setSize(500, 500);
         ventanaRegistro.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -227,6 +227,7 @@ public class InterfazInicioSesion extends JFrame {
         JButton ActualizarButton = new JButton("Actualizar datos");
         JButton EliminarButton = new JButton("Eliminar datos");
         JButton TablasButton = new JButton("Consultar tablas");
+        JButton AtrasButton = new JButton("Atras");
         JButton cerrarSesionButton = new JButton("Cerrar Sesión");
 
         JPanel panelBotones = new JPanel(new GridLayout(5, 2));
@@ -234,6 +235,7 @@ public class InterfazInicioSesion extends JFrame {
         panelBotones.add(ActualizarButton);
         panelBotones.add(EliminarButton);
         panelBotones.add(TablasButton);
+        panelBotones.add(AtrasButton);
         panelBotones.add(cerrarSesionButton);
 
         ventanaRegistro.add(panelBotones, BorderLayout.CENTER);
@@ -245,10 +247,25 @@ public class InterfazInicioSesion extends JFrame {
                 ventanaRegistro.dispose();
             }
         });
+        AtrasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String tipoUsuario = (String) tipoUsuarioComboBox.getSelectedItem();
+
+                if ("Administrador".equals(tipoUsuario)){
+                    abrirInterfazAdministrador();
+                    ventanaRegistro.dispose();}else{
+                    abrirInterfazVendedor();
+                    ventanaRegistro.dispose();
+                }
+
+            }
+        });
 
         InsertarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ventanaRegistro.dispose();
                 Insertar Insertar = new Insertar();
                 Insertar.Insert();
             }
@@ -257,16 +274,20 @@ public class InterfazInicioSesion extends JFrame {
         ActualizarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ventanaRegistro.dispose();
                 Actualizar Actualizar = new Actualizar();
                 Actualizar.Actualizar();
+
             }
         });
 
        EliminarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ventanaRegistro.dispose();
                 Delete Delete = new Delete();
                 Delete.Delete();
+
             }
         });
 
@@ -275,8 +296,10 @@ public class InterfazInicioSesion extends JFrame {
         TablasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ventanaRegistro.dispose();
                 MostrarTablas Mostrar = new MostrarTablas();
                 Mostrar.MostrarTablas();
+
 
             }
         });
@@ -452,7 +475,7 @@ public class InterfazInicioSesion extends JFrame {
         try {
             Class.forName("org.postgresql.Driver");
             String usuario="postgres";
-            String contrasena="202259500";
+            String contrasena="1234";
             String bd="Proyecto";
             String ip="localhost";
             String puerto="5432";
@@ -462,15 +485,7 @@ public class InterfazInicioSesion extends JFrame {
 
 
             connection = DriverManager.getConnection(url, usuario, contrasena);
-            if (connection != null) {
-                System.out.println("Conexión exitosa a la base de datos PostgreSQL");
-            } else {
-                connection = DriverManager.getConnection(url, usuario, "1234");
-                if (connection != null) {
-                    System.out.println("Conexión exitosa a la base de datos PostgreSQL");
-                } else {
-                    System.out.println("No se pudo establecer la conexión");}
-            }
+
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
