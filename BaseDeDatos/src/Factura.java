@@ -59,6 +59,7 @@ public class Factura extends JFrame {
                                     "Error", JOptionPane.ERROR_MESSAGE);
                         }
 
+
                         // Cierra los recursos de base de datos
                         resultSet.close();
                         preparedStatement.close();

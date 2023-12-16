@@ -237,7 +237,6 @@ public class InterfazInicioSesion extends JFrame {
         cerrarSesionButton.setBackground(Color.RED);
         cerrarSesionButton.setForeground(Color.WHITE);
 
-
         JPanel panelBotones = new JPanel(new GridLayout(7, 1));
         panelBotones.add(InsertarButton);
         panelBotones.add(ActualizarButton);
