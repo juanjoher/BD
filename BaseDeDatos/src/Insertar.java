@@ -77,8 +77,7 @@ public class Insertar extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ventanaInsercion.dispose();
-                InterfazInicioSesion Interfaz = new InterfazInicioSesion();
-                Interfaz.VentanaRegistro();
+
 
             }
         });

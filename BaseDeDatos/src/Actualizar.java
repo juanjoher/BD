@@ -75,8 +75,6 @@ public class Actualizar extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ventanaAct.dispose();
-                InterfazInicioSesion Interfaz = new InterfazInicioSesion();
-                Interfaz.VentanaRegistro();
 
             }
         });

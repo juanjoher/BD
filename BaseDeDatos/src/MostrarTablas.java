@@ -49,8 +49,7 @@ public class MostrarTablas extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                ventanaTablas.dispose();
-               InterfazInicioSesion Interfaz = new InterfazInicioSesion();
-               Interfaz.VentanaRegistro();
+
 
             }
         });

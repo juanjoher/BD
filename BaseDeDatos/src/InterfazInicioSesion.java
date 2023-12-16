@@ -153,7 +153,7 @@ public class InterfazInicioSesion extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 VentanaRegistro();
-                ventanaAdministrador.dispose();
+
             }
         });
 
@@ -257,14 +257,8 @@ public class InterfazInicioSesion extends JFrame {
         AtrasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String tipoUsuario = (String) tipoUsuarioComboBox.getSelectedItem();
+                ventanaRegistro.dispose();
 
-                if ("Administrador".equals(tipoUsuario)){
-                    abrirInterfazAdministrador();
-                    ventanaRegistro.dispose();}else{
-                    abrirInterfazVendedor();
-                    ventanaRegistro.dispose();
-                }
 
             }
         });
@@ -272,7 +266,6 @@ public class InterfazInicioSesion extends JFrame {
         InsertarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ventanaRegistro.dispose();
                 Insertar Insertar = new Insertar();
                 Insertar.Insert();
             }
@@ -281,7 +274,6 @@ public class InterfazInicioSesion extends JFrame {
         ActualizarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ventanaRegistro.dispose();
                 Actualizar Actualizar = new Actualizar();
                 Actualizar.Actualizar();
 
@@ -293,7 +285,6 @@ public class InterfazInicioSesion extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String tipoUsuario = (String) tipoUsuarioComboBox.getSelectedItem();
                 if (tipoUsuario=="Administrador"){
-                ventanaRegistro.dispose();
                 Delete Delete = new Delete();
                 Delete.Delete();} else{
                     JOptionPane.showMessageDialog(null, "Acceso restringido, contacte al administrador para eliminar algun dato.","ERROR", JOptionPane.ERROR_MESSAGE);
@@ -308,7 +299,6 @@ public class InterfazInicioSesion extends JFrame {
         TablasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ventanaRegistro.dispose();
                 MostrarTablas Mostrar = new MostrarTablas();
                 Mostrar.MostrarTablas();
 
@@ -324,6 +314,8 @@ public class InterfazInicioSesion extends JFrame {
 
 
     }
+
+
 
     private void abrirInterfazVendedor() {
         JFrame ventanaVendedor = new JFrame("Panel de Vendedor");
@@ -419,7 +411,7 @@ public class InterfazInicioSesion extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 VentanaRegistro();
-                ventanaVendedor.dispose();
+
             }
         });
 
