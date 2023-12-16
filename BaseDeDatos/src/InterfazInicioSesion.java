@@ -229,7 +229,6 @@ public class InterfazInicioSesion extends JFrame {
         JButton InsertarButton = new JButton("Insertar datos a tablas");
         JButton ActualizarButton = new JButton("Actualizar datos");
         JButton EliminarButton = new JButton("Eliminar datos");
-        JButton FacturaButton = new JButton("Generar Factura");
         JButton TablasButton = new JButton("Consultar tablas");
         JButton AtrasButton = new JButton("Atras");
         JButton cerrarSesionButton = new JButton("Cerrar Sesión");
@@ -237,11 +236,11 @@ public class InterfazInicioSesion extends JFrame {
         cerrarSesionButton.setBackground(Color.RED);
         cerrarSesionButton.setForeground(Color.WHITE);
 
-        JPanel panelBotones = new JPanel(new GridLayout(7, 1));
+
+        JPanel panelBotones = new JPanel(new GridLayout(6, 1));
         panelBotones.add(InsertarButton);
         panelBotones.add(ActualizarButton);
         panelBotones.add(EliminarButton);
-        panelBotones.add(FacturaButton);
         panelBotones.add(TablasButton);
         panelBotones.add(AtrasButton);
         panelBotones.add(cerrarSesionButton);
@@ -262,8 +261,7 @@ public class InterfazInicioSesion extends JFrame {
 
                 if ("Administrador".equals(tipoUsuario)){
                     abrirInterfazAdministrador();
-                    ventanaRegistro.dispose();}
-                else{
+                    ventanaRegistro.dispose();}else{
                     abrirInterfazVendedor();
                     ventanaRegistro.dispose();
                 }
@@ -289,15 +287,7 @@ public class InterfazInicioSesion extends JFrame {
 
             }
         });
-        FacturaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ventanaRegistro.dispose();
-                Factura Factura = new Factura();
-                Factura.Factura();
 
-            }
-        });
        EliminarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

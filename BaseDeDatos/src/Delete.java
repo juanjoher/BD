@@ -84,8 +84,7 @@ public class Delete extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ventanaDelete.dispose();
-                InterfazInicioSesion Interfaz = new InterfazInicioSesion();
-                Interfaz.VentanaRegistro();
+
 
             }
         });
