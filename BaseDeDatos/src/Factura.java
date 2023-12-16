@@ -53,6 +53,7 @@ public class Factura extends JFrame {
 
                             actualizarEstadoEntrega(numeropedido, "Entregado");
 
+
                         } else {
                             JOptionPane.showMessageDialog(frame,
                                     "No se encontró información para el número de pedido: " + numeropedido,
