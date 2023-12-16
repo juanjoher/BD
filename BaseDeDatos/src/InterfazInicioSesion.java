@@ -352,6 +352,7 @@ public class InterfazInicioSesion extends JFrame {
         JButton registroButton = new JButton("Registro, Consulta, Modificación y eliminación");
 
         cerrarSesionButton.setBackground(Color.RED);
+
         cerrarSesionButton.setForeground(Color.WHITE);
 
 
