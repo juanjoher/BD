@@ -20,7 +20,7 @@ public class Actualizar extends JFrame {
         ventanaAct.setLocationRelativeTo(null);
 
 
-        tablaComboBox = new JComboBox<>(new String[]{"UniformeColegio", "PrendaVestir", "Proveedor", "MateriaPrima", "Cliente", "TelCliente", "Encargo"});
+        tablaComboBox = new JComboBox<>(new String[]{"UniformeColegio", "PrendaVestir", "Proveedor", "MateriaPrima", "Cliente", "Encargo"});
 
 
         ventanaAct.add(new JLabel("Seleccione una tabla:"));
@@ -58,9 +58,7 @@ public class Actualizar extends JFrame {
                     MateriaPrima(tablaSeleccionada);
                 } else    if (tablaComboBox.getSelectedItem() == "Cliente"){
                     Cliente(tablaSeleccionada);
-                } else    if (tablaComboBox.getSelectedItem() == "TelCliente"){
-                    TelCliente(tablaSeleccionada);
-                } else if (tablaComboBox.getSelectedItem() == "Encargo"){
+                }  else if (tablaComboBox.getSelectedItem() == "Encargo"){
                     Encargo(tablaSeleccionada);
                 }
 
@@ -389,7 +387,14 @@ public class Actualizar extends JFrame {
                 Object NuevoValor = valorTextField.getText();
                 String Condicion = "IdCliente";
                 int AtrCondicion = Integer.parseInt(atributoTextField.getText());
-                Act(tablaSeleccionada,Atributo,NuevoValor,Condicion,AtrCondicion);
+
+                 if (Atributo == "Telefono") {
+                    Act("TelCliente", "Telefono", NuevoValor, Condicion, AtrCondicion);
+                } else {
+                    Act(tablaSeleccionada, Atributo, NuevoValor, Condicion, AtrCondicion);
+                }
+
+
                 ventanaAct.dispose();
 
 
@@ -401,68 +406,6 @@ public class Actualizar extends JFrame {
         dispose();
     }
 
-    public void TelCliente(String tablaSeleccionada){
-        JFrame ventanaAct = new JFrame("Insertar Datos");
-        ventanaAct.setSize(300, 200);
-        ventanaAct.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        ventanaAct.setLocationRelativeTo(null);
-
-
-        JLabel NombreAtributoLabel = new JLabel("Ingrese el nombre del atributo a actualizar:");
-        JLabel valorLabel = new JLabel("Ingrese el nuevo valor del atributo:");
-
-
-
-        JTextField NombreAtributoTextField = new JTextField();
-        JTextField valorTextField = new JTextField();
-
-
-        ventanaAct.add(NombreAtributoLabel);
-        ventanaAct.add(NombreAtributoTextField);
-        ventanaAct.add(valorLabel);
-        ventanaAct.add(valorTextField);
-
-
-        JLabel atributoCondicion = new JLabel ("Ingrese el Id del cliente: ");
-        JTextField atributoTextField = new JTextField();
-
-
-
-
-
-        // Crear botón para confirmar la selección
-        JButton confirmarButton = new JButton("Actualizar");
-
-        // Configurar el layout
-        ventanaAct.setLayout(new GridLayout(6, 2));
-
-        ventanaAct.add(NombreAtributoLabel);
-        ventanaAct.add(NombreAtributoTextField);
-        ventanaAct.add(valorLabel);
-        ventanaAct.add(valorTextField);
-        ventanaAct.add(atributoCondicion);
-        ventanaAct.add(atributoTextField);
-        ventanaAct.add(confirmarButton);
-
-        // Acción del botón de confirmar
-        confirmarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String Atributo = NombreAtributoTextField.getText();
-                Object NuevoValor = valorTextField.getText();
-                String Condicion = "IdCliente";
-                int AtrCondicion = Integer.parseInt(atributoTextField.getText());
-                Act(tablaSeleccionada,Atributo,NuevoValor,Condicion,AtrCondicion);
-                ventanaAct.dispose();
-
-
-            }
-        });
-
-        // Hacer visible la ventana de inserción
-        ventanaAct.setVisible(true);
-        dispose();
-    }
 
     public void Encargo(String tablaSeleccionada){
         JFrame ventanaAct = new JFrame("Insertar Datos");
@@ -553,7 +496,7 @@ public class Actualizar extends JFrame {
             } catch (SQLException ex) {
                 ex.printStackTrace();
                 // Manejar la excepción según tus necesidades
-                JOptionPane.showMessageDialog(null, "Error al eliminar datos en la tabla " +NombreTabla, "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error al actualizar datos en la tabla " +NombreTabla, "Error", JOptionPane.ERROR_MESSAGE);
             }
         }else{ try {
 

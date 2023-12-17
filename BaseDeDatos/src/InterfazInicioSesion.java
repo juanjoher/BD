@@ -274,7 +274,7 @@ public class InterfazInicioSesion extends JFrame {
         InsertarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ventanaRegistro.dispose();
+
                 Insertar Insertar = new Insertar();
                 Insertar.Insert();
             }
@@ -283,7 +283,7 @@ public class InterfazInicioSesion extends JFrame {
         ActualizarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ventanaRegistro.dispose();
+
                 Actualizar Actualizar = new Actualizar();
                 Actualizar.Actualizar();
 
@@ -295,7 +295,6 @@ public class InterfazInicioSesion extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String tipoUsuario = (String) tipoUsuarioComboBox.getSelectedItem();
                 if (tipoUsuario=="Administrador"){
-                ventanaRegistro.dispose();
                 Delete Delete = new Delete();
                 Delete.Delete();} else{
                     JOptionPane.showMessageDialog(null, "Acceso restringido, contacte al administrador para eliminar algun dato.","ERROR", JOptionPane.ERROR_MESSAGE);
@@ -317,11 +316,10 @@ public class InterfazInicioSesion extends JFrame {
 
 
         TablasButton.addActionListener(new ActionListener() {
-            @Override
+
             public void actionPerformed(ActionEvent e) {
-                ventanaRegistro.dispose();
-                MostrarTablas Mostrar = new MostrarTablas();
-                Mostrar.MostrarTablas();
+                MostrarTablas obj = new MostrarTablas();
+                obj.MostrarTablas();
 
 
             }

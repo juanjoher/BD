@@ -69,9 +69,6 @@ public class Delete extends JFrame {
                 }else if(Objects.equals(tablaSeleccionada, "Cliente")){
                     Cliente();
 
-                }else if(Objects.equals(tablaSeleccionada, "TelCliente")){
-                    TelCliente();
-
                 }else if(Objects.equals(tablaSeleccionada, "Encargo")){
                     Encargo();
 
@@ -314,6 +311,7 @@ public class Delete extends JFrame {
 
                 DeleteFrom("TelCliente",atributoSeleccionado,valor);
                 DeleteFrom(NombreTabla,atributoSeleccionado,valor);
+
                 ventanaCliente.dispose();
 
 
@@ -324,51 +322,7 @@ public class Delete extends JFrame {
         ventanaCliente.setVisible(true);
         dispose();
     }
-    public void TelCliente(){
-        JFrame ventanaCliente = new JFrame("Telefono cliente");
-        ventanaCliente.setSize(300, 200);
-        ventanaCliente.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        ventanaCliente.setLocationRelativeTo(null);
 
-
-
-        clienteComboBox = new JComboBox<>(new String[]{"IdCliente"});
-        JLabel AtributoLabel = new JLabel("Digite el Id del cliente :");
-        JTextField AtributoTextField = new JTextField();
-        JButton eliminarButton = new JButton("Eliminar");
-
-
-        ventanaCliente.setLayout(new GridLayout(6, 2));
-
-
-        ventanaCliente.add(new JLabel("Atributo y su valor para hacer la condicion de eliminación"));
-        ventanaCliente.add(clienteComboBox);
-
-
-
-        ventanaCliente.add(AtributoLabel);
-        ventanaCliente.add(AtributoTextField);
-
-        ventanaCliente.add(eliminarButton);
-
-        eliminarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String atributoSeleccionado = clienteComboBox.getSelectedItem().toString();
-                String NombreTabla= "TelCliente";
-                Object valor= AtributoTextField.getText();
-
-                DeleteFrom(NombreTabla,atributoSeleccionado,valor);
-                ventanaCliente.dispose();
-
-
-            }
-        });
-
-        // Hacer visible la ventana de inserción
-        ventanaCliente.setVisible(true);
-        dispose();
-    }
     public void Encargo(){
         JFrame ventanaEncargo = new JFrame("Encargo");
         ventanaEncargo.setSize(300, 200);

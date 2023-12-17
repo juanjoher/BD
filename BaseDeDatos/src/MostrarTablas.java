@@ -48,7 +48,7 @@ public class MostrarTablas extends JFrame {
         AtrasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               ventanaTablas.dispose();
+                ventanaTablas.dispose();
 
 
             }
@@ -124,37 +124,37 @@ public class MostrarTablas extends JFrame {
                 e.printStackTrace();
             }
         }else{
-        try (Statement statement = connection.createStatement()) {
-            // Cambia "nombre_de_tu_vista" con el nombre de la vista que deseas mostrar
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM "+tablaSeleccionada+";");
+            try (Statement statement = connection.createStatement()) {
+                // Cambia "nombre_de_tu_vista" con el nombre de la vista que deseas mostrar
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM "+tablaSeleccionada+";");
 
-            // Limpiar el contenido actual de la tabla
-            tableModel.setRowCount(0);
-            tableModel.setColumnCount(0);
+                // Limpiar el contenido actual de la tabla
+                tableModel.setRowCount(0);
+                tableModel.setColumnCount(0);
 
-            // Obtener información sobre las columnas
-            ResultSetMetaData metaData = resultSet.getMetaData();
-            int numColumns = metaData.getColumnCount();
+                // Obtener información sobre las columnas
+                ResultSetMetaData metaData = resultSet.getMetaData();
+                int numColumns = metaData.getColumnCount();
 
-            // Añadir nombres de columnas al modelo de tabla
-            Vector<String> columnNames = new Vector<>();
-            for (int column = 1; column <= numColumns; column++) {
-                columnNames.add(metaData.getColumnName(column));
-            }
-            tableModel.setColumnIdentifiers(columnNames);
-
-            // Añadir filas al modelo de tabla
-            while (resultSet.next()) {
-                Vector<Object> rowData = new Vector<>();
+                // Añadir nombres de columnas al modelo de tabla
+                Vector<String> columnNames = new Vector<>();
                 for (int column = 1; column <= numColumns; column++) {
-                    rowData.add(resultSet.getObject(column));
+                    columnNames.add(metaData.getColumnName(column));
                 }
-                tableModel.addRow(rowData);
-            }
+                tableModel.setColumnIdentifiers(columnNames);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }}
+                // Añadir filas al modelo de tabla
+                while (resultSet.next()) {
+                    Vector<Object> rowData = new Vector<>();
+                    for (int column = 1; column <= numColumns; column++) {
+                        rowData.add(resultSet.getObject(column));
+                    }
+                    tableModel.addRow(rowData);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }}
     }
 
     public void establecerConexion() {
